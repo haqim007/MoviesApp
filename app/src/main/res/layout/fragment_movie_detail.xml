@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.moviedetail.MovieDetailFragment"
+    android:paddingHorizontal="16dp"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_gravity="center">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clMovieDetail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/materialCardView"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginTop="100dp"
+                android:layout_marginBottom="4dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:layout_margin="5dp"
+                    android:id="@+id/ivPoster"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    tools:src="@drawable/san_andreas" />
+
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <ImageButton
+                android:id="@+id/btnOpenTrailer"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@android:color/transparent"
+                android:scaleType="fitXY"
+                android:padding="0dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/baseline_smart_display_24"
+                app:layout_constraintBottom_toBottomOf="@+id/materialCardView"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/materialCardView"
+                app:layout_constraintStart_toStartOf="@+id/materialCardView"
+                app:layout_constraintTop_toBottomOf="@+id/materialCardView"
+                tools:text="@tools:sample/lorem/random" />
+
+            <LinearLayout
+                android:background="@drawable/border"
+                android:padding="10dp"
+                android:id="@+id/llRating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@+id/tvTitle"
+                app:layout_constraintTop_toBottomOf="@+id/tvTitle"
+                android:layout_marginTop="16dp"
+                android:gravity="center_vertical"
+                >
+
+                <RatingBar
+                    android:stepSize="0.1"
+                    android:id="@+id/rbMovieRating"
+                    style="?android:attr/ratingBarStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/RatingBar"
+                    tools:progress="70"/>
+
+                <TextView
+                    android:id="@+id/tvVoteCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/rbMovieRating"
+                    app:layout_constraintStart_toEndOf="@+id/rbMovieRating"
+                    app:layout_constraintTop_toTopOf="@+id/rbMovieRating"
+                    tools:text="(1K Reviews)" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:src="@drawable/baseline_arrow_forward_ios_24"
+                    />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvSummaryTitle"
+                android:layout_width="0dp"
+                android:layout_marginTop="16dp"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/materialCardView"
+                app:layout_constraintTop_toBottomOf="@+id/llRating"
+                android:text="@string/synopsis" />
+
+            <TextView
+                android:id="@+id/tvSummary"
+                android:layout_width="0dp"
+                android:layout_marginTop="16dp"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="5"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="@+id/materialCardView"
+                app:layout_constraintTop_toBottomOf="@+id/tvSummaryTitle"
+                tools:text="@tools:sample/lorem/random" />
+
+            <TextView
+                android:id="@+id/tvGenresTitle"
+                android:layout_width="0dp"
+                android:layout_marginTop="16dp"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/materialCardView"
+                app:layout_constraintTop_toBottomOf="@+id/tvSummary"
+                android:text="@string/genre" />
+
+            <TextView
+                android:id="@+id/tvGenres"
+                android:layout_width="0dp"
+                android:layout_marginTop="16dp"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="5"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="@+id/materialCardView"
+                app:layout_constraintTop_toBottomOf="@+id/tvGenresTitle"
+                tools:text="Genre 1 | Genre 2" />
+
+            <TextView
+                android:id="@+id/tvStatusTitle"
+                android:layout_width="0dp"
+                android:layout_marginTop="16dp"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/materialCardView"
+                app:layout_constraintTop_toBottomOf="@+id/tvGenres"
+                android:text="@string/status" />
+
+            <TextView
+                android:id="@+id/tvStatus"
+                android:layout_width="0dp"
+                android:layout_marginTop="16dp"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="5"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="@+id/materialCardView"
+                app:layout_constraintTop_toBottomOf="@+id/tvStatusTitle"
+                tools:text="Released" />
+
+            <TextView
+                android:id="@+id/tvReleasedDateTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:text="@string/release_date"
+                android:textSize="20sp"
+                android:layout_marginEnd="20dp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tvStatusTitle" />
+
+            <TextView
+                android:id="@+id/tvReleasedDate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:ellipsize="end"
+                android:maxLines="5"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="@+id/tvReleasedDateTitle"
+                app:layout_constraintTop_toBottomOf="@+id/tvReleasedDateTitle"
+                android:text="None" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ProgressBar
+            android:layout_gravity="center"
+            android:id="@+id/pbLoader"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintTop_toBottomOf="@id/hscGenres"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:visibility="gone"/>
+
+        <include
+            android:id="@+id/errorView"
+            layout="@layout/error_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintTop_toBottomOf="@id/hscGenres"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:visibility="gone"
+            />
+
+    </LinearLayout>
+
+
+
+</androidx.core.widget.NestedScrollView>

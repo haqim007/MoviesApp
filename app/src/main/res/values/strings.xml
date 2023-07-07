@@ -1,3 +1,20 @@
 <resources>
-    <string name="app_name">MoviesApp</string>
+    <string name="app_name">Movies App</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="error">Error</string>
+    <string name="failed_to_fetch_genres">Failed to fetch genres</string>
+    <string name="cancel">Cancel</string>
+    <string name="decline">Decline</string>
+    <string name="accept">Accept</string>
+    <string name="try_again">Try Again</string>
+    <string name="close">Close</string>
+    <string name="an_error_occured">An error occured</string>
+    <string name="list_is_empty">List is empty</string>
+    <string name="synopsis">Synopsis</string>
+    <string name="genre">Genre</string>
+    <string name="status">Status</string>
+    <string name="release_date">Release Date</string>
+    <string name="reviews" >Reviews</string>
+    <string name="oops">Oops\n</string>
+    <string name="unavailable_trailer_for_this_movie">Unavailable trailer for this movie</string>
 </resources>

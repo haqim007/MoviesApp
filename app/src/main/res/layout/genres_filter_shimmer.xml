@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.facebook.shimmer.ShimmerFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/shimmerContainer"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <HorizontalScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="6dp"
+            >
+
+            <com.google.android.material.card.MaterialCardView
+                app:cardCornerRadius="10dp"
+                app:cardBackgroundColor="@android:color/darker_gray"
+                android:layout_width="100dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="6dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.card.MaterialCardView
+                app:cardCornerRadius="10dp"
+                app:cardBackgroundColor="@android:color/darker_gray"
+                android:layout_width="100dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="6dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.card.MaterialCardView
+                app:cardCornerRadius="10dp"
+                app:cardBackgroundColor="@android:color/darker_gray"
+                android:layout_width="100dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="6dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.card.MaterialCardView
+                app:cardCornerRadius="10dp"
+                app:cardBackgroundColor="@android:color/darker_gray"
+                android:layout_width="100dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="6dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </LinearLayout>
+    </HorizontalScrollView>
+
+</com.facebook.shimmer.ShimmerFrameLayout>

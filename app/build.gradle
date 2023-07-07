@@ -1,6 +1,10 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'androidx.navigation.safeargs.kotlin'
+    id 'kotlin-parcelize'
+    id 'dagger.hilt.android.plugin'
 }
 
 android {
@@ -20,25 +24,66 @@ android {
     buildTypes {
         release {
             minifyEnabled false
+            buildConfigField "String", "BASE_URL", "\"https://api.themoviedb.org/3/\""
+            buildConfigField "String", "BASE_IMAGE_URL" ,"\"https://image.tmdb.org/t/p/w500/\""
+            buildConfigField "String", "API_KEY", "\"eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5ZTdhN2Y3N2I0NmQ3YTY3ZTU4MmE3MjYzNGZhNGM3OCIsInN1YiI6IjY0MjdkZWNmOGE4OGIyMDBmNDZmNWZlNCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.V82Ta2QIJyUg5W1zmssfTuvsnYezmdzSlAZOkDQXctk\""
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            minifyEnabled false
+            buildConfigField "String", "BASE_URL", "\"https://api.themoviedb.org/3/\""
+            buildConfigField "String", "BASE_IMAGE_URL" ,"\"https://image.tmdb.org/t/p/w500/\""
+            buildConfigField "String", "API_KEY", "\"eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5ZTdhN2Y3N2I0NmQ3YTY3ZTU4MmE3MjYzNGZhNGM3OCIsInN1YiI6IjY0MjdkZWNmOGE4OGIyMDBmNDZmNWZlNCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.V82Ta2QIJyUg5W1zmssfTuvsnYezmdzSlAZOkDQXctk\""
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '17'
+    }
+    buildFeatures{
+        buildConfig true
+        viewBinding true
     }
 }
 
 dependencies {
 
-    implementation 'androidx.core:core-ktx:1.8.0'
+    implementation 'androidx.core:core-ktx:1.10.1'
     implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'com.google.android.material:material:1.5.0'
+    implementation 'com.google.android.material:material:1.9.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.6.0'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+
+    //retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation "com.squareup.retrofit2:converter-gson:2.9.0"
+    //noinspection GradleDependency
+    implementation 'com.squareup.okhttp3:okhttp:5.0.0-alpha.11'
+    //noinspection GradleDependency
+    implementation 'com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.11'
+
+    //paging
+    implementation "androidx.paging:paging-runtime-ktx:3.1.1"
+
+    //hilt
+    implementation "com.google.dagger:hilt-android:2.45"
+    kapt "com.google.dagger:hilt-android-compiler:2.45"
+
+    //glide
+    implementation 'com.github.bumptech.glide:glide:4.15.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.15.0'
+
+    //shimmer
+    implementation "com.facebook.shimmer:shimmer:0.5.0"
+
+    // lottie
+    implementation 'com.airbnb.android:lottie:4.1.0'
+
 }
