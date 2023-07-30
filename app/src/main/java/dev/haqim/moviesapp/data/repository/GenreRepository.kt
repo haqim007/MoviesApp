@@ -7,6 +7,7 @@ import dev.haqim.moviesapp.data.remote.response.GenreListResponse
 import dev.haqim.moviesapp.data.remote.response.toModel
 import dev.haqim.moviesapp.di.DispatcherIO
 import dev.haqim.moviesapp.domain.model.Genre
+import dev.haqim.moviesapp.domain.repository.IGenreRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -20,9 +21,9 @@ class GenreRepository @Inject constructor(
     private val remoteDataSource: RemoteDataSource,
     @DispatcherIO
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
-) {
+): IGenreRepository {
 
-    fun getGenres(): Flow<Resource<List<Genre>>> {
+    override fun getGenres(): Flow<Resource<List<Genre>>> {
         return object : NetworkBoundResource<List<Genre>, GenreListResponse>(){
             override suspend fun requestFromRemote(): Result<GenreListResponse> {
                 return remoteDataSource.getGenres()

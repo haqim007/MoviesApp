@@ -6,7 +6,7 @@ import androidx.paging.cachedIn
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dev.haqim.moviesapp.domain.model.Movie
 import dev.haqim.moviesapp.domain.model.ReviewItem
-import dev.haqim.moviesapp.domain.usecase.ReviewUseCase
+import dev.haqim.moviesapp.domain.usecase.GetReviewsUseCase
 import dev.haqim.moviesapp.ui.BaseViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
@@ -24,7 +24,7 @@ import javax.inject.Inject
 @OptIn(ExperimentalCoroutinesApi::class)
 @HiltViewModel
 class ReviewListVM @Inject constructor(
-    private val useCase: ReviewUseCase
+    private val getReviewsUseCase: GetReviewsUseCase
 ): BaseViewModel<ReviewsListUiState, ReviewsListUiAction, Nothing>() {
 
     private var _pagingDataFlow: Flow<PagingData<ReviewItem>>
@@ -58,7 +58,7 @@ class ReviewListVM @Inject constructor(
         }
     }
     private fun fetchReviews(movieId: Int): Flow<PagingData<ReviewItem>>{
-        return useCase.getReviews(movieId)
+        return getReviewsUseCase(movieId)
     }
     
     private fun setMovie(movie: Movie){

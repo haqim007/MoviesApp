@@ -7,14 +7,14 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import dev.haqim.moviesapp.data.mechanism.Resource
 import dev.haqim.moviesapp.domain.model.Genre
 import dev.haqim.moviesapp.domain.model.MovieListItem
-import dev.haqim.moviesapp.domain.usecase.GenreUseCase
-import dev.haqim.moviesapp.domain.usecase.MovieUseCase
+import dev.haqim.moviesapp.domain.usecase.FetchGenreUseCase
+import dev.haqim.moviesapp.domain.usecase.FetchMoviesUseCase
+import dev.haqim.moviesapp.domain.usecase.ToggleGenreUseCase
 import dev.haqim.moviesapp.ui.BaseViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.launchIn
@@ -27,8 +27,9 @@ import javax.inject.Inject
 @OptIn(ExperimentalCoroutinesApi::class)
 @HiltViewModel
 class MovieListVM @Inject constructor(
-    private val movieUseCase: MovieUseCase,
-    private val genreUseCase: GenreUseCase
+    private val toggleGenreUseCase: ToggleGenreUseCase,
+    private val fetchGenreUseCase: FetchGenreUseCase,
+    private val fetchMoviesUseCase: FetchMoviesUseCase
 ): BaseViewModel<MovieListState, MovieListUiAction, Nothing>() {
 
     private var _pagingDataFlow: Flow<PagingData<MovieListItem>>
@@ -66,7 +67,7 @@ class MovieListVM @Inject constructor(
 
     private fun onClickGenre(genre: Genre) {
         viewModelScope.launch {
-            val newGenresData = genreUseCase.toggleCheckedGenre(genre, state.value.genres)
+            val newGenresData = toggleGenreUseCase(genre, state.value.genres)
             _state.update { state ->
                 state.copy(
                     activeGenres = if(genre.isChecked)
@@ -83,7 +84,7 @@ class MovieListVM @Inject constructor(
 
     private fun fetchGenres(){
         viewModelScope.launch {
-            genreUseCase.getGenres().collect{
+            fetchGenreUseCase().collect{
                 _state.update { state ->
                     state.copy(
                         genres = it,
@@ -95,7 +96,7 @@ class MovieListVM @Inject constructor(
     }
 
     private fun fetchMovies(activeGenres: List<Genre>):  Flow<PagingData<MovieListItem>>{
-        return movieUseCase.getMovies(activeGenres)
+        return fetchMoviesUseCase(activeGenres)
     }
 }
 

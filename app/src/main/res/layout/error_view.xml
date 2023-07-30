@@ -10,12 +10,14 @@
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/lavError"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.363"
         app:lottie_autoPlay="true"
         app:lottie_fileName="empty_box_animation.json"
         app:lottie_loop="true" />
@@ -25,25 +27,25 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/btnTryAgain"
+        android:gravity="center"
+        android:text="@string/an_error_occured"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginTop="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.9"
-        android:textSize="20sp"
-        android:gravity="center"
-        android:textStyle="bold"
-        android:text="@string/an_error_occured" />
+        app:layout_constraintTop_toBottomOf="@+id/lavError"
+        app:layout_constraintVertical_bias="0.1" />
 
     <Button
         android:id="@+id/btnTryAgain"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
         android:text="@string/try_again"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="24dp"
         app:layout_constraintEnd_toEndOf="@+id/tvErrorMessage"
-        app:layout_constraintStart_toStartOf="@+id/tvErrorMessage" />
+        app:layout_constraintStart_toStartOf="@+id/tvErrorMessage"
+        app:layout_constraintTop_toBottomOf="@+id/tvErrorMessage" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,6 +2,7 @@ package dev.haqim.moviesapp.data.remote.response
 
 import com.google.gson.annotations.SerializedName
 import dev.haqim.moviesapp.BuildConfig
+import dev.haqim.moviesapp.data.local.entity.MovieListItemEntity
 import dev.haqim.moviesapp.domain.model.MovieListItem
 import dev.haqim.moviesapp.domain.model.Vote
 
@@ -78,6 +79,18 @@ data class MovieListResponse(
 				)
 			)
 		}
+	}
+}
+
+fun List<MovieListResponse.Item>.toEntity(): List<MovieListItemEntity>{
+	return this.map { 
+		MovieListItemEntity(
+			id = it.id,
+			posterUrl =  BuildConfig.BASE_IMAGE_URL + it.posterPath,
+			originalTitle = it.originalTitle,
+			voteCount = it.voteCount,
+			voteAverage = it.voteAverage
+		)
 	}
 }
 

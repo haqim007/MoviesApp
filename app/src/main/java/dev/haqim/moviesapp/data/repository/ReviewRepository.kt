@@ -12,6 +12,7 @@ import dev.haqim.moviesapp.data.remote.response.toModel
 import dev.haqim.moviesapp.data.util.DEFAULT_PAGE_SIZE
 import dev.haqim.moviesapp.di.DispatcherIO
 import dev.haqim.moviesapp.domain.model.ReviewItem
+import dev.haqim.moviesapp.domain.repository.IReviewRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -25,11 +26,11 @@ class ReviewRepository @Inject constructor(
     private val remoteDataSource: RemoteDataSource,
     @DispatcherIO
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
-) {
+): IReviewRepository {
 
-    fun getTopReviews(
+    override fun getTopReviews(
         movieId: Int,
-        size: Int = 3
+        size: Int
     ): Flow<Resource<List<ReviewItem>>> {
         return object : NetworkBoundResource<List<ReviewItem>, ReviewsResponse>(){
             override suspend fun requestFromRemote(): Result<ReviewsResponse> {
@@ -42,7 +43,7 @@ class ReviewRepository @Inject constructor(
         }.asFlow().flowOn(dispatcher)
     }
 
-    fun getReviews(
+    override fun getReviews(
         movieId: Int,
     ): Flow<PagingData<ReviewItem>>{
         return Pager(
