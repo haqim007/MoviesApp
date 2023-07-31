@@ -23,27 +23,12 @@ fun <ItemDataType : Any> PagingDataAdapter<ItemDataType, RecyclerView.ViewHolder
     scope.launch {
         val adapter = this@pagerLoadState
         adapter.loadStateFlow.collect { loadState ->
-            val isListEmpty =
-                loadState.refresh is LoadState.NotLoading &&
-                        adapter.itemCount == 0 &&
-                        loadState.prepend.endOfPaginationReached
 
-            errorView?.root?.isVisible = isListEmpty
-
-            if(isListEmpty){
-               errorView?.tvErrorMessage?.text = context.getString(R.string.list_is_empty)
-            }
-
-            if(loader != null){
-                listView.isVisible = !isListEmpty && loadState.refresh is LoadState.NotLoading
-            }else{
-                listView.isVisible = !isListEmpty
-            }
-
-            val isLoading = loadState.source.refresh is LoadState.Loading
-            val isNotLoading = loadState.source.refresh is LoadState.NotLoading
+            val isLoading = loadState.refresh is LoadState.Loading || loadState.source.refresh is LoadState.Loading
+            val isNotLoading = loadState.refresh is LoadState.NotLoading
 
             loader?.isVisible = isLoading
+            listView.isVisible = !isLoading
 
             if(isNotLoading){
                 listView.scrollToPosition(0)
@@ -60,11 +45,30 @@ fun <ItemDataType : Any> PagingDataAdapter<ItemDataType, RecyclerView.ViewHolder
                 ?: loadState.prepend as? LoadState.Error
                 ?: loadState.refresh as? LoadState.Error
 
+            val isListEmpty =
+                loadState.refresh is LoadState.NotLoading &&
+                adapter.itemCount == 0 &&
+                loadState.prepend.endOfPaginationReached 
+                && errorState == null
+
+            errorView?.root?.isVisible = isListEmpty
+
+            if(isListEmpty){
+                errorView?.tvErrorMessage?.text = context.getString(R.string.list_is_empty)
+            }
+
+            if(loader != null){
+                listView.isVisible = !isListEmpty && loadState.refresh is LoadState.NotLoading
+            }else{
+                listView.isVisible = !isListEmpty
+            }
+                
+
             errorState?.let {
                 errorView?.root?.isVisible = true
                 errorView?.tvErrorMessage?.text = context.getString(R.string.an_error_occured)
             } ?: run{
-                errorView?.root?.isVisible = false
+//                errorView?.root?.isVisible = false
                 errorView?.tvErrorMessage?.text = errorMessage
                     ?: context.getString(R.string.an_error_occured)
             }

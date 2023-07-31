@@ -36,8 +36,10 @@ class MovieListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentMovieListBinding.inflate(layoutInflater, container, false)
-
-        (requireActivity() as AppCompatActivity).supportActionBar?.title = getString(R.string.app_name)
+        
+        val actionBar = (requireActivity() as AppCompatActivity).supportActionBar
+        actionBar?.title = getString(R.string.app_name)
+        actionBar?.setDisplayHomeAsUpEnabled(false)
 
         val uiState = viewModel.state
         val uiAction = {action: MovieListUiAction -> viewModel.processAction(action)}
@@ -49,7 +51,6 @@ class MovieListFragment : Fragment() {
             .launch {
                genresFlow.handleCollect(
                    onSuccess = {
-                       binding.hscGenres.isVisible = true
                        binding.genresFilterShimmer.root.isVisible = false
                        setGenres(
                            it.data ?: listOf()
@@ -58,7 +59,6 @@ class MovieListFragment : Fragment() {
                        }
                    },
                    onLoading = {
-                       binding.hscGenres.isVisible = false
                        binding.genresFilterShimmer.root.isVisible = true
                    },
                    onError = {
@@ -81,7 +81,6 @@ class MovieListFragment : Fragment() {
         val selectedGenresFlow = uiState.map { it.activeGenres }.distinctUntilChanged()
         viewLifecycleOwner.lifecycleScope.launch {
             selectedGenresFlow.collect {
-                Log.d("SELECTED GENRES", it.toString())
                 uiAction(MovieListUiAction.FetchMovies)
             }
         }
@@ -92,7 +91,8 @@ class MovieListFragment : Fragment() {
                    .actionMovieListFragmentToMovieDetailFragment(it)
                 findNavController().navigate(action)
             },
-            onTryAgain = { uiAction(MovieListUiAction.FetchGenres) })
+            onTryAgain = { uiAction(MovieListUiAction.FetchGenres) },
+        )
 
         return binding.root
     }
@@ -123,7 +123,7 @@ class MovieListFragment : Fragment() {
 
     private fun setMovies(
         onClickItem: (MovieListItem) -> Unit,
-        onTryAgain: () -> Unit
+        onTryAgain: () -> Unit,
     ){
 
         val adapter = MovieListAdapter(object : MovieListAdapterListener {
@@ -149,6 +149,12 @@ class MovieListFragment : Fragment() {
                 viewModel
                     .pagingDataFlow
                     .collect(adapter::submitData)
+        }
+        
+        binding.srlMovieList.setOnRefreshListener { 
+            adapter.refresh()
+            onTryAgain()
+            binding.srlMovieList.isRefreshing = false
         }
 
 
