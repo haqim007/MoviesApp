@@ -19,7 +19,7 @@ interface MovieListItemDao {
     suspend fun clearAllData()
     
     @Query("SELECT * FROM $MOVIE_ITEM_LIST_TABLE WHERE id = :id")
-    suspend fun getDataById(id: Int): MovieListItemEntity
+    suspend fun getDataById(id: Int): MovieListItemEntity?
 
     @Query("SELECT * FROM $MOVIE_ITEM_LIST_TABLE")
     fun getPagingData(): PagingSource<Int, MovieListItemEntity>
